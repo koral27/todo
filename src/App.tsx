@@ -1,25 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './components/header/header';
+import Sidebar from './components/sidebar/sidebar'
+import Content from './components/content/content'
 
-function App() {
+import { ITodo } from './interfaces'
+
+
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<ITodo[]>([]);
+
+  const addHandler = (title: string) => {
+    const newTodo: ITodo = {
+      title,
+      id: Date.now(),
+      completed: false
+    }
+    setTodos((state) => [ newTodo, ...state ])
+  }
+
+  const completeHandler = (id: number) => {
+    setTodos(state => state.map(todo => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed
+      }
+      return todo;
+    }))
+  }
+
+  const deleteHandler = (id: number) => {
+    setTodos(state => state.filter(todo => todo.id !== id))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <div className="row no-gutter" style={{height: '100%', display: 'flex'}}>
+        <div className="col s2">
+          <Sidebar />
+        </div>
+        <div className="col s10">
+          <Content 
+            onAdd={addHandler} 
+            todos={todos} 
+            onComplete={completeHandler} 
+            onDelete={deleteHandler}
+          />
+        </div>
+      </div>
+    </>
   );
 }
 
