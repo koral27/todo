@@ -1,3 +1,14 @@
-.todo-item.completed span {
-  text-decoration: line-through;
+.todo-item {
+  display: flex;
+  align-items: center;
+
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+
+  &.completed {
+    span {
+      text-decoration: line-through;
+    }
+  }
 }

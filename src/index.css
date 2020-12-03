@@ -19,11 +19,3 @@ code {
 .row {
   margin-bottom: 0;
 }
-
-/*======================================
-=            NO GUTTER CODE            =
-======================================*/
-.no-gutter > div.col {
-  padding-right:0!important;
-  padding-left:0!important;
-}

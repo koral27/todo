@@ -1,54 +1,26 @@
-import React, { useState } from 'react';
+import React, { FC } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Header from './components/header/header';
-import Sidebar from './components/sidebar/sidebar'
-import Content from './components/content/content'
+import Sidebar from './components/sidebar/sidebar';
+import Content from './components/content/content';
 
-import { ITodo } from './interfaces'
-
-
-const App: React.FC = () => {
-  const [todos, setTodos] = useState<ITodo[]>([]);
-
-  const addHandler = (title: string) => {
-    const newTodo: ITodo = {
-      title,
-      id: Date.now(),
-      completed: false
-    }
-    setTodos((state) => [ newTodo, ...state ])
-  }
-
-  const completeHandler = (id: number) => {
-    setTodos(state => state.map(todo => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed
-      }
-      return todo;
-    }))
-  }
-
-  const deleteHandler = (id: number) => {
-    setTodos(state => state.filter(todo => todo.id !== id))
-  }
-
+const App: FC = () => {
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <div className="row no-gutter" style={{height: '100%', display: 'flex'}}>
-        <div className="col s2">
-          <Sidebar />
-        </div>
-        <div className="col s10">
-          <Content 
-            onAdd={addHandler} 
-            todos={todos} 
-            onComplete={completeHandler} 
-            onDelete={deleteHandler}
-          />
+
+      <div className="container-fluid p-0 h-100">
+        <div className="row no-gutters h-100">
+          <div className="col-2">
+            <Sidebar />
+          </div>
+          <div className="col-10">
+            <Content />
+          </div>
         </div>
       </div>
-    </>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

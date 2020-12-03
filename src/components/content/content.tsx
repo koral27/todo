@@ -1,27 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import AddForm from '../add-form/add-form'
-import TodoList from '../todo-list/todo-list'
+import { InboxPage } from '../../pages/inbox';
+import { TodayPage } from '../../pages/today';
 
-import { ITodo } from '../../interfaces'
-import './content.scss'
+import './content.scss';
 
-interface TodoFormProps {
-  onAdd(title: string): void
-  todos: ITodo[]
-  onComplete: (id: number) => void
-  onDelete: (id: number) => void
-}
-
-const Content: React.FC<TodoFormProps> = (props) => {
+const Content: FC = () => {
   return (
     <main className="main-content">
-      <AddForm onAdd={props.onAdd}/>
-      <div className="col s6">
-        <TodoList todos={props.todos} onComplete={props.onComplete} onDelete={props.onDelete}/>
-      </div>
+      <Switch>
+        <Route component={InboxPage} path="/" exact />
+        <Route component={TodayPage} path="/today" exact />
+      </Switch>
     </main>
-  )
-}
+  );
+};
 
 export default Content;

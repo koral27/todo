@@ -1,50 +1,31 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { connect } from 'react-redux';
+import { State, TTodo, TTodos } from '../../types';
+import { TodoItem } from '../todo-item';
+import './todo-list.scss';
 
-import { ITodo } from '../../interfaces'
+const TodoList: FC<TTodos> = ({ todos }) => {
+  const items = todos.map((todo: TTodo) => {
+    return <TodoItem key={todo.id} todo={todo} />;
+  });
 
-import './todo-list.scss'
+  if (todos.length === 0) return <p>Наслаждайтесь отдыхом!</p>;
 
-type TodoListProps = {
-  todos: ITodo[],
-  onComplete: (id: number) => void
-  onDelete: (id: number) => void
-}
+  return <ul className="todo-list list-group">{items}</ul>;
+};
 
+const mapStateToProps = (state: State) => {
+  return {
+    todos: state.todos,
+  };
+};
 
-const TodoList: React.FC<TodoListProps> = ({ todos, onComplete, onDelete }) => {
-  
-  const items = todos.map((todo) => {
-    const { title, id, completed } = todo;
-    const classes = ['todo-item', 'collection-item']
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    add: () => {
+      dispatch({ type: 'ADD_TASK' });
+    },
+  };
+};
 
-    if (completed) {
-      classes.push('completed')
-    }
-
-    return (   
-      <li 
-        key={id} 
-        className={classes.join(' ')}>
-        <label>
-          <input type="checkbox" checked={completed} onChange={() => onComplete(id)}/>
-          <span>{title}</span>
-          <button className="secondary-content btn-flat">
-            <i 
-              className="material-icons red-text"
-              onClick={() => onDelete(id)}>
-                delete
-            </i>
-          </button>
-        </label>
-      </li>
-    )
-  })
-  
-  return (
-    <ul className="todo-list collection">
-      { items }
-    </ul>
-  )
-}
-
-export default TodoList;
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

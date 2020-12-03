@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
+import TopFilters from './top-filters/top-filters';
 
-import './sidebar.scss'
+import './sidebar.scss';
 
-const Sidebar: React.FC = () => {
+const Sidebar: FC = () => {
   return (
     <aside className="sidebar">
-      sidebar
+      <TopFilters />
     </aside>
-  )
-}
+  );
+};
 
 export default Sidebar;

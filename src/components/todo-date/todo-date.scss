@@ -1,0 +1,11 @@
+.todo-date {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: red;
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(165, 8, 8);
+  }
+}
