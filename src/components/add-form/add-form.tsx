@@ -7,6 +7,13 @@ import './add-form.scss';
 
 const AddForm: FC = () => {
   const [title, setTitle] = useState<string>('');
+  const [deadline, setDeadline] = useState<string>(
+    new Date().toLocaleString('ru', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  );
   const [clicked, setClicked] = useState<boolean>(true);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -16,7 +23,7 @@ const AddForm: FC = () => {
   const submitHadler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setTitle('');
-    store.dispatch(addTask(title));
+    store.dispatch(addTask(title, deadline));
   };
 
   const addDiv = (
@@ -54,7 +61,7 @@ const AddForm: FC = () => {
             className="btn btn-outline-success d-flex align-items-center mr-2"
           >
             <CalendarSVG className="mr-1" />
-            Сегодня
+            {deadline}
           </button>
           <button
             type="button"
@@ -67,9 +74,9 @@ const AddForm: FC = () => {
       </div>
       <div>
         <button
-          type="button"
+          type="submit"
           className="btn btn-danger"
-          onClick={() => store.dispatch(addTask(title))}
+          disabled={title ? false : true}
         >
           Добавить задачу
         </button>

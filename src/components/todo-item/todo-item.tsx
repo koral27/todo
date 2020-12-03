@@ -6,7 +6,7 @@ import { TodoDate } from '../todo-date';
 import './todo-item.scss';
 
 const TodoItem: FC<TTodoProps> = ({ todo }) => {
-  const { title, id, completed } = todo;
+  const { title, id, completed, deadline } = todo;
   const classes = ['todo-item', 'list-group-item', 'align-items-start'];
 
   if (completed) classes.push('completed');
@@ -21,7 +21,7 @@ const TodoItem: FC<TTodoProps> = ({ todo }) => {
       />
       <div className="todo-body">
         <span className="todo-title">{title}</span>
-        <TodoDate />
+        <TodoDate deadline={deadline} />
       </div>
       <button className="btn btn-link ml-auto p-0">
         <img

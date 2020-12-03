@@ -1,7 +1,10 @@
-export const addTask = (title: string) => {
+export const addTask = (title: string, deadline: string) => {
   return {
     type: 'ADD_TASK',
-    payload: title,
+    payload: {
+      title,
+      deadline,
+    },
   };
 };
 

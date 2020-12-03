@@ -2,6 +2,7 @@ export type TTodo = {
   title: string;
   id: number;
   completed: boolean;
+  deadline: string;
 };
 
 export type TTodos = {
@@ -18,7 +19,10 @@ export type State = {
 
 export type Action = {
   type: String;
-  payload: {};
+  payload: {
+    title?: string | undefined;
+    deadline?: string | undefined;
+  };
 };
 
 export type InputProps = {

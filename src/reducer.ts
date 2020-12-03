@@ -11,10 +11,12 @@ const todoReducer: Function = (state: State = initialState, action: Action) => {
 
   switch (action.type) {
     case 'ADD_TASK':
+      console.log(action.payload);
       const newTodo: TTodo = {
-        title: action.payload as string,
+        title: action.payload.title as string,
         id: Date.now(),
         completed: false,
+        deadline: action.payload.deadline as string,
       };
       const newTodos = [...todos, newTodo];
       localStorage.setItem('todos', JSON.stringify(newTodos));

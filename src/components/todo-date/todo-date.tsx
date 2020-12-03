@@ -1,7 +1,14 @@
 import React, { FC } from 'react';
 import './todo-date.scss';
 
-const TodoDate: FC = () => {
+type TodoDateProps = {
+  deadline: string;
+};
+
+const TodoDate: FC<TodoDateProps> = ({ deadline }) => {
+  const regExp = /. [0-9]* г.$/;
+  const yearIndex = deadline.search(regExp);
+
   return (
     <div className="todo-date">
       <svg
@@ -18,7 +25,7 @@ const TodoDate: FC = () => {
         ></path>
         <rect width="2" height="2" x="11" y="7" rx=".5"></rect>
       </svg>
-      28 ноя
+      {deadline.substring(0, yearIndex)}
     </div>
   );
 };
