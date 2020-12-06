@@ -1,4 +1,5 @@
-export const addTask = (title: string, deadline: string) => {
+export const addTask = (title: string, deadline: Date) => {
+  // console.log(deadline.getFullYear());
   return {
     type: 'ADD_TASK',
     payload: {

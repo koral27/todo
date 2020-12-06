@@ -2,12 +2,20 @@ import React, { FC } from 'react';
 import './todo-date.scss';
 
 type TodoDateProps = {
-  deadline: string;
+  deadline: Date;
 };
 
 const TodoDate: FC<TodoDateProps> = ({ deadline }) => {
+  const dateToString = String(deadline);
+  const parseDate = Date.parse(dateToString); // milliseconds
+  const dateFormat = new Date(parseDate).toLocaleDateString('ru', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+
   const regExp = /. [0-9]* г.$/;
-  const yearIndex = deadline.search(regExp);
+  const yearIndex = dateFormat.search(regExp);
 
   return (
     <div className="todo-date">
@@ -25,7 +33,7 @@ const TodoDate: FC<TodoDateProps> = ({ deadline }) => {
         ></path>
         <rect width="2" height="2" x="11" y="7" rx=".5"></rect>
       </svg>
-      {deadline.substring(0, yearIndex)}
+      {dateFormat.substring(0, yearIndex)}
     </div>
   );
 };
